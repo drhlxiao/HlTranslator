@@ -7,6 +7,10 @@
   pointer-events: auto;
   font-family: 'Inter', system-ui, sans-serif;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.07)) drop-shadow(0 10px 25px rgba(0,0,0,0.10));
+  /* Prevent layout jitter and ghost frames */
+  will-change: left, top;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 .dep-inner {
@@ -18,9 +22,7 @@
   max-width: 300px;
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(5px) scale(0.98);
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  backface-visibility: hidden;
 }
 
 /* Indigo top accent stripe */
@@ -31,11 +33,6 @@
   height: 3px;
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
   border-radius: 12px 12px 0 0;
-}
-
-#de-en-popup.dep-visible .dep-inner {
-  opacity: 1;
-  transform: translateY(0) scale(1);
 }
 
 /* ── Header ── */
@@ -128,7 +125,6 @@
 }
 
 .dep-speak-btn:active {
-  transform: scale(0.90);
 }
 
 .dep-speak-btn svg {
@@ -176,7 +172,8 @@
 #de-en-popup.dep-speaking .dep-speak-btn {
   background: #ede9fe;
   border-color: #a78bfa;
-  animation: dep-pulse-ring 0.7s ease-in-out infinite alternate;
+  /* Ensure shadow animation doesn't shift pixels */
+  transform: translateZ(0);
 }
 
 #de-en-popup.dep-speaking .dep-speak-btn svg path {

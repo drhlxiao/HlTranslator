@@ -81,9 +81,9 @@
 
   // ── Positioning helper ────────────────────────────────────────────────────
   function positionPopup(el, x, y) {
-    el.style.left = '0px';
-    el.style.top = '0px';
+    // Set initial state to calculate dimensions without being seen
     el.style.display = 'block';
+    el.style.visibility = 'hidden';
 
     const rect = el.getBoundingClientRect();
     const W = rect.width;
@@ -101,16 +101,18 @@
 
     el.style.left = `${left}px`;
     el.style.top = `${top}px`;
+    el.style.visibility = 'visible';
   }
 
   // ── Show / hide ───────────────────────────────────────────────────────────
   function showPopup(x, y, word, translation) {
     const el = getPopup();
-    const targetBadge = el.querySelector('.dep-lang-badge.en');
     el.querySelector('.dep-word').textContent = word;
     el.querySelector('.dep-translation').textContent = translation;
     el.querySelector('#dep-src-badge').textContent = currentSourceLang.toUpperCase();
-    el.classList.remove('dep-loading', 'dep-error', 'dep-visible');
+    
+    // Only add dep-visible AFTER positioning to trigger the entrance transition smoothly
+    el.classList.remove('dep-loading', 'dep-error');
     el.querySelector('.dep-bookmark-btn').classList.remove('active');
 
     positionPopup(el, x, y);
@@ -122,7 +124,7 @@
     const el = getPopup();
     el.querySelector('.dep-word').textContent = word;
     el.querySelector('.dep-translation').textContent = '';
-    el.classList.remove('dep-visible', 'dep-error');
+    el.classList.remove('dep-error');
     el.classList.add('dep-loading');
 
     positionPopup(el, x, y);
@@ -141,7 +143,7 @@
     clearTimeout(hideTimer);
     if (popup) {
       popup.classList.remove('dep-visible');
-      setTimeout(() => { if (popup) popup.style.display = 'none'; }, 200);
+      popup.style.display = 'none';
     }
   }
 
