@@ -49,7 +49,7 @@
       if (currentWord) {
         clearTimeout(hideTimer);
         pronounce(currentWord);
-        scheduleHide(5000);
+        scheduleHide(10000);
       }
     });
     el.querySelector('.dep-bookmark-btn').addEventListener('click', async (e) => {
@@ -69,7 +69,7 @@
       }
     });
     el.addEventListener('mouseenter', () => clearTimeout(hideTimer));
-    el.addEventListener('mouseleave', () => scheduleHide(3000));
+    el.addEventListener('mouseleave', () => scheduleHide(10000));
 
     return el;
   }
@@ -117,7 +117,7 @@
 
     positionPopup(el, x, y);
     el.classList.add('dep-visible');
-    scheduleHide(6000);
+    scheduleHide(10000);
   }
 
   function showLoading(x, y, word) {
@@ -136,7 +136,7 @@
     el.querySelector('.dep-translation').textContent = msg;
     el.classList.remove('dep-loading');
     el.classList.add('dep-error', 'dep-visible');
-    scheduleHide(4000);
+    scheduleHide(10000);
   }
 
   function hidePopup() {
@@ -163,12 +163,13 @@
 
   if (sourceLang === targetLang) {
     currentSourceLang = sourceLang;
-    return word;
+    return {'text': word, 'srcLang': sourceLang, 'destLang': targetLang};
   }
 
   if (cache[cacheKey]) {
     currentSourceLang = cache[cacheKey].sl;
-    return cache[cacheKey].t;
+    let translatedText= cache[cacheKey].t;
+      return {'text': translatedText, 'srcLang': sourceLang, 'destLang': targetLang};
   }
 
   // ← MyMemory's keyword for auto-detect is "auto", not "autodetect"
@@ -260,7 +261,7 @@
     if (e.key === 'Control' && currentWord) {
       clearTimeout(hideTimer);
       pronounce(currentWord);
-      scheduleHide(5000);
+      scheduleHide(10000);
     }
     if (e.key === 'Escape') hidePopup();
   });
