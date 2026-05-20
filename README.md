@@ -11,7 +11,7 @@ Double-click any word on a webpage to see an instant translation, hear its pronu
 - **Vocabulary Bookmarks**: Save interesting words to your local storage with a single click on the bookmark icon.
 - **CSV Export**: Manage your learning by exporting your bookmarked words (including word, translation, source language, and date) to a CSV file.
 - **Customizable Target Language**: Set your preferred target language (English, German, French, Spanish, or Chinese) via the toolbar popup.
-It uses https://api.mymemory.translated.net/ for translation 
+-  Using https://api.mymemory.translated.net/ for translation 
 ## Installation
 1.  Clone this repository or download the source code to your local machine.
 2.  Open Google Chrome (or any Chromium-based browser like Edge or Brave).
