@@ -39,5 +39,10 @@ It uses https://libretranslate.com/ for translation.
 
 GPLv3
 
+## Screenshots
+
+![screenshot1](screenshots/popup.png)
+![screenshot2](screenshots/export.png)
+
 ## Author
 drhlxiao
