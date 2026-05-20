@@ -13,7 +13,6 @@ Double-click any word on a webpage to see an instant translation, hear its pronu
 - **Customizable Target Language**: Set your preferred target language (English, German, French, Spanish, or Chinese) via the toolbar popup.
 It uses https://api.mymemory.translated.net/ for translation 
 ## Installation
-It uses https://libretranslate.com/ for translation.
 1.  Clone this repository or download the source code to your local machine.
 2.  Open Google Chrome (or any Chromium-based browser like Edge or Brave).
 3.  Navigate to `chrome://extensions/`.
