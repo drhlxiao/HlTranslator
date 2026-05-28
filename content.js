@@ -236,7 +236,7 @@
   async function translate(word) {
   const stored = await chrome.storage.local.get(['targetLang', 'sourceLang']);
   targetLang = stored.targetLang || 'en';
-  sourceLang = stored.sourceLang || 'autodetect';
+  sourceLang = stored.sourceLang || 'autodetect'; // Update module-level sourceLang
 
   const cacheKey = `${word}:${sourceLang}:${targetLang}`;
 
@@ -267,15 +267,15 @@
   if (!translation || translation.trim() === '') throw new Error('Empty translation');
 
   // ← Correct field: responseData.detectedSourceLanguage (not matches[0].source)
-  const detected = data?.responseData?.detectedLanguage;
-  if (detected ){
-    if(detected.length >= 2) {
-    currentSourceLang = detected.split('-')[0].toLowerCase(); // "DE-DE" → "de"
+  const detectedLanguageFromApi = data?.responseData?.detectedLanguage;
+  if (sourceLang === 'autodetect' && detectedLanguageFromApi) { // Only use detected language if auto-detect is enabled
+    if (detectedLanguageFromApi.length >= 2) {
+      currentSourceLang = detectedLanguageFromApi.split('-')[0].toLowerCase(); // "DE-DE" → "de"
     } else {
-      currentSourceLang = detected.toLowerCase();
+      currentSourceLang = detectedLanguageFromApi.toLowerCase();
     }
   } else {
-    currentSourceLang = (sourceLang !== 'autodetect') ? sourceLang : 'en';
+    currentSourceLang = sourceLang; // Use the user's selected sourceLang
   }
 
   cache[cacheKey] = { t: translation, sl: currentSourceLang };
